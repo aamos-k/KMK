@@ -36,7 +36,7 @@ jobs:
       id: inference
       uses: actions/ai-inference@v1
       with:
-        prompt-file: context.txt
+        prompt-file: 'context.txt'
 
     - name: Show response
       run: echo "${{ steps.inference.outputs.response }}"
