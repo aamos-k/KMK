@@ -13,6 +13,13 @@ jobs:
     steps:
     - name: Checkout source
       uses: actions/checkout@v3
+      
+    - uses: actions/checkout@v3
+    - name: Call GitHub Models
+      uses: github/models-action@v1
+      with:
+        prompt: "Debug any errors that occur when running the process"
+        github-token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Cache build artifacts
       uses: actions/cache@v4
@@ -33,7 +40,7 @@ jobs:
       run: dd if=/dev/zero of=disk.img bs=1M count=10
 
     - name: Build the ISO
-      run: make
+      run: make run
 
     - name: Upload ISO
       uses: actions/upload-artifact@v4
