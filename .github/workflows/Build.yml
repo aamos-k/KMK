@@ -17,36 +17,15 @@ jobs:
     steps:
     - name: Checkout source
       uses: actions/checkout@v3
-    - name: Build prompt with code context
-      run: |
-        echo 'Try to give fixes to any bugs that may occur.' > context.txt
-
-        for file in \
-          kernel.c \
-          syscalls.h \
-          posix/posix.h
-        do
-          echo '```c' >> context.txt
-          cat "$file" >> context.txt
-          echo '```' >> context.txt
-        done
-    - name: Load prompt into env var
-      id: load
-      run: |
-        prompt="$(cat context.txt)"
-        echo "PROMPT<<EOF" >> $GITHUB_OUTPUT
-        echo "$prompt" >> $GITHUB_OUTPUT
-        echo "EOF" >> $GITHUB_OUTPUT
-    - name: Call GitHub AI model
-      uses: actions/ai-inference@v1
-      with:
-        prompt: ${{ steps.load.outputs.PROMPT }}
-
-    - name: Show response
-      run: echo "${{ steps.inference.outputs.response }}"
+    - name: Test
+      uses: CodeThreat/codethreat-github-action@v1.026
+    - name: MegaLinter
+      uses: oxsecurity/megalinter@v8.8.0
+    - name: OpenCommit — improve commits with AI 🧙
+      uses: di-sukharev/opencommit@github-action-v1.0.2
     - name: Cache build artifacts
       uses: actions/cache@v4
-      with:
+      with:        
         path: |
           OS/*.o
           OS/kernel
@@ -63,7 +42,7 @@ jobs:
       run: dd if=/dev/zero of=disk.img bs=1M count=10
 
     - name: Build the ISO
-      run: make
+      run: make run
 
     - name: Upload ISO
       uses: actions/upload-artifact@v4
