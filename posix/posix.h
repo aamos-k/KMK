@@ -3,6 +3,8 @@
 
 #include <stdint.h>
 #include <stddef.h>
+#include <stdbool.h>
+
 #include "helpers/disk.h"
 #include "filesystem/filesystem.h"
 #include "structs/structs.h"
