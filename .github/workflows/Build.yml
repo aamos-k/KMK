@@ -17,10 +17,7 @@ jobs:
     steps:
     - name: Checkout source
       uses: actions/checkout@v3
-    - name: Read important file
-      id: read_file
-      run: |
-      - name: Build prompt with code context
+    - name: Build prompt with code context
       run: |
         echo 'Try to give fixes to any bugs that may occur.' > context.txt
 
@@ -42,7 +39,7 @@ jobs:
         prompt-file: context.txt
 
     - name: Show response
-          run: echo "${{ steps.inference.outputs.response }}"
+      run: echo "${{ steps.inference.outputs.response }}"
     - name: Cache build artifacts
       uses: actions/cache@v4
       with:
