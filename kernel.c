@@ -93,36 +93,6 @@ void clear_screen() {
     }
 }
 
-char* input_echo_loop(char *buffer) {
-    int i = 0;
-
-    while (1) {
-        uint8_t sc = inb(0x60);
-        if (sc & 0x80) continue; // Key release
-
-        char c = scancode_to_ascii[sc];
-        if (c == '\0') continue;
-
-        // Wait for key release (debounce)
-        while ((inb(0x60) & 0x80) == 0);
-
-        if (c == '\n') {
-            putc('\n');
-            buffer[i] = '\0'; // Null-terminate
-            return buffer; // Only returns once per line
-
-        } else if (c == '\b') {
-            if (i > 0) {
-                i--;
-                putc('\b'); putc(' '); putc('\b');
-            }
-        } else if (i < MAX_INPUT - 1) {
-            buffer[i++] = c;
-            putc(c);
-        }
-    }
-}
-
 void debug_sector_data(const void* buffer, const char* label) {
     const uint8_t* data = (const uint8_t*)buffer;
     print(label); 
