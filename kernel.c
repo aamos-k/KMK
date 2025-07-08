@@ -14,7 +14,6 @@ __attribute__((section(".multiboot"))) volatile unsigned long header[] = {
 #include "helpers/idt.h"
 #include "structs/interrupts.h"
 
-
 #define USER_PROG_LOAD_ADDR 0x400000
 #define USER_STACK_TOP      0x800000
 #define MAX_INPUT 64
@@ -57,7 +56,6 @@ extern char _text_start[];
 extern char _text_end[];
 size_t code_size;
 int filesystem_initialized = 0;
-char buffer[12];
 char mem_buf[24];
 extern uint32_t magic_number;
 extern uint32_t mb_info_ptr;

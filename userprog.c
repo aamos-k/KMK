@@ -1,6 +1,6 @@
 #include "syscalls.h"
 
-char buffer[64];
+extern char buffer[12];
 
 void load_user_program() {
     const char* msg  = "Hello, kernel!\n";
