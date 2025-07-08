@@ -31,12 +31,17 @@ jobs:
           cat "$file" >> context.txt
           echo '```' >> context.txt
         done
-
-    - name: Run GitHub AI Inference with Context
-      id: inference
+    - name: Load prompt into env var
+      id: load
+      run: |
+        prompt="$(cat context.txt)"
+        echo "PROMPT<<EOF" >> $GITHUB_OUTPUT
+        echo "$prompt" >> $GITHUB_OUTPUT
+        echo "EOF" >> $GITHUB_OUTPUT
+    - name: Call GitHub AI model
       uses: actions/ai-inference@v1
       with:
-        prompt-file: 'context.txt'
+        prompt: ${{ steps.load.outputs.PROMPT }}
 
     - name: Show response
       run: echo "${{ steps.inference.outputs.response }}"
