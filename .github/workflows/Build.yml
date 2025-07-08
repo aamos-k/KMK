@@ -17,14 +17,32 @@ jobs:
     steps:
     - name: Checkout source
       uses: actions/checkout@v3
-    - name: Call GitHub Models
+    - name: Read important file
+      id: read_file
+      run: |
+      - name: Build prompt with code context
+      run: |
+        echo 'Try to give fixes to any bugs that may occur.' > context.txt
+
+        for file in \
+          kernel.c \
+          syscalls.h \
+          posix/posix.h \
+          helpers/basics.h
+        do
+          echo '```c' >> context.txt
+          cat "$file" >> context.txt
+          echo '```' >> context.txt
+        done
+
+    - name: Run GitHub AI Inference with Context
       id: inference
       uses: actions/ai-inference@v1
       with:
-        prompt: "give fixes to any bugs that may occur"
+        prompt-file: context.txt
 
     - name: Show response
-      run: echo "${{ steps.inference.outputs.response }}"
+          run: echo "${{ steps.inference.outputs.response }}"
     - name: Cache build artifacts
       uses: actions/cache@v4
       with:
