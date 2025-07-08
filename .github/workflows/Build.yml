@@ -1,0 +1,30 @@
+name: Build OS
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout source
+      uses: actions/checkout@v3
+
+    - name: Install dependencies
+      run: |
+        sudo apt update
+        sudo apt install -y build-essential gcc-multilib grub-pc-bin xorriso nasm qemu-system-i386
+
+    - name: Build the ISO
+      run: make
+
+    - name: Upload ISO
+      uses: actions/upload-artifact@v4
+      with:
+        name: os.iso
+        path: os.iso
+
