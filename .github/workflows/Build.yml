@@ -36,7 +36,7 @@ jobs:
       run: dd if=/dev/zero of=disk.img bs=1M count=10
 
     - name: Build the ISO
-      run: make run
+      run: make
 
     - name: Upload ISO
       uses: actions/upload-artifact@v4
