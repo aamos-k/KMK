@@ -17,8 +17,6 @@ jobs:
     steps:
     - name: Checkout source
       uses: actions/checkout@v3
-    - name: Test
-      uses: CodeThreat/codethreat-github-action@v1.026
     - name: MegaLinter
       uses: oxsecurity/megalinter@v8.8.0
     - name: OpenCommit — improve commits with AI 🧙
