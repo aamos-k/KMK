@@ -24,8 +24,7 @@ jobs:
         for file in \
           kernel.c \
           syscalls.h \
-          posix/posix.h \
-          helpers/basics.h
+          posix/posix.h
         do
           echo '```c' >> context.txt
           cat "$file" >> context.txt
