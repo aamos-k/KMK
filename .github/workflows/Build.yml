@@ -13,7 +13,14 @@ jobs:
     steps:
     - name: Checkout source
       uses: actions/checkout@v3
+    - name: Call GitHub Models
+      id: inference
+      uses: actions/ai-inference@v1
+      with:
+        prompt: "give fixes to any bugs that may occur"
 
+    - name: Show response
+      run: echo "${{ steps.inference.outputs.response }}"
     - name: Cache build artifacts
       uses: actions/cache@v4
       with:
