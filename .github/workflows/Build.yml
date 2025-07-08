@@ -29,6 +29,9 @@ jobs:
         sudo apt update
         sudo apt install -y build-essential gcc-multilib grub-pc-bin xorriso nasm qemu-system-i386
 
+    - name: Create 10MB empty disk
+      run: dd if=/dev/zero of=disk.img bs=1M count=10
+
     - name: Build the ISO
       run: make
 
