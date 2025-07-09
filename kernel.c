@@ -327,7 +327,7 @@ void kernel_main() {
         while(1); // Halt
     }
     
-    if (mb_info->flags & MB_INFO_FLAG_ELF_BOOTLOADER) {
+    if (mb_info->flags) {
     }
     log("Dumping block 0:\n");
     dump_block_0();
