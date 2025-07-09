@@ -11,14 +11,6 @@
 #define PERM_WRITE  0x02  // 00000010
 #define PERM_EXEC   0x04  // 00000100
 
-
-typedef struct {
-    uint32_t flags;
-    uint32_t mem_lower;
-    uint32_t mem_upper;
-    // other fields omitted for now
-} __attribute__((packed)) multiboot_info_t;
-
 typedef struct {
     uint16_t magic;
     uint32_t total_blocks;
@@ -48,6 +40,7 @@ typedef struct {
     uint8_t active;
     uint8_t permissions;  // New field
 } FileEntry;
+
 typedef struct {
     uint8_t stack[STACK_SIZE];
     void (*entry)(void);

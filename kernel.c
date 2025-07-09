@@ -30,6 +30,15 @@ void register_interrupt_handler(int n, void (*handler)(struct registers*));
 int load_user_program(const char* filename);
 extern void syscall_entry();  // defined in assembly or C stub
 
+typedef struct {
+    uint32_t flags;
+    uint32_t mem_lower;
+    uint32_t mem_upper;
+    uint32_t boot_device;
+    uint32_t cmdline;
+    uint32_t mods_count;
+    uint32_t mods_addr;
+} __attribute__((packed)) multiboot_info_t;
 
 // Utility function prototypes
 void print(const char* str);
