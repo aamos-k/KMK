@@ -165,70 +165,12 @@ void putc(char c) {
     scroll();  // Scroll if needed
 }
 
-void lputc(char c) {
-    if (c == '\n') {
-        col = 0;
-        row++;
-        return;
-    }
-
-    if (col >= LOGO_WIDTH) {
-        col = 0;
-        row++;
-    }
-
-    if (row >= LOGO_HEIGHT) {
-        row = 0; // Wrap around, or implement scrolling
-    }
-
-    int pos = 2 * (row * 80 + col);
-    VIDEO_MEMORY[pos] = c;
-    VIDEO_MEMORY[pos + 1] = 0x07; // Light gray on black
-    col++;
-}
-void bputc(char c) {
-    if (c == '\n') {
-        col = 0;
-        row++;
-        return;
-    }
-
-    if (col >= BEAR_WIDTH) {
-        col = 0;
-        row++;
-    }
-
-    if (row >= BEAR_HEIGHT) {
-        row = 0; // Wrap around, or implement scrolling
-    }
-
-    int pos = 2 * (row * 80 + col);
-    VIDEO_MEMORY[pos] = c;
-    VIDEO_MEMORY[pos + 1] = 0x07; // Light gray on black
-    col++;
-}
-
-void print_logo(const char* str) {
-    while (*str) {
-        char c = *str++;
-        lputc(c);
-    }
-}
-
-void print_bear(const char* str) {
-    while (*str) {
-        char c = *str++;
-        bputc(c);
-    }
-}
-
 void print(const char* str) {
     while (*str) {
         char c = *str++;
         putc(c);
     }
 }
-
 
 void print_buffer_n(const char *buffer, int len) {
     for (int i = 0; i < len; i++) {

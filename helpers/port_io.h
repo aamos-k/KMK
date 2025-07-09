@@ -23,5 +23,11 @@ static inline uint16_t inw(uint16_t port) {
     return ret;
 }
 
+void disable_watchdog() {
+    // Disable Bochs/QEMU watchdog (port 0x443, write 0)
+    outb(0x443, 0);
+}
+
+
 #endif
 

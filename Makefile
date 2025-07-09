@@ -63,7 +63,7 @@ $(ISO): iso/boot/grub iso/boot/kernel
 
 # Run QEMU
 run: $(ISO)
-	qemu-system-x86_64 -d int,cpu_reset -drive file=disk.img,format=raw,if=ide -cdrom $(ISO) -serial file:output.log
+	qemu-system-x86_64 -d int,cpu_reset -drive file=disk.img,format=raw,if=ide -cdrom $(ISO) -serial file:output.log 
 
 # Clean build artifacts
 clean:

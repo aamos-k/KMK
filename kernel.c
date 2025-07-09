@@ -142,7 +142,6 @@ void init_filesystem(void) {
         memcpy(&superblock, disk_sb, sizeof(Superblock));
         load_file_table();
         filesystem_initialized = 1;
-        return;
     }
     
     print("No valid filesystem found. Creating new filesystem...\n");
@@ -280,14 +279,13 @@ void syscall_handler(struct registers *r) {
 }
 
 void user_task_entry() {
-    load_user_program("init");
+    load_user_program("main");
 }
 
 void kernel_main() {
     multiboot_info_t* mb_info = (multiboot_info_t*)mb_info_ptr;
     serial_init();
     clear_screen();
-    idt_install(); 
     print_buffer("Total Memory (MB): ");
     int_to_chars(((mb_info->mem_lower + mb_info->mem_upper) / 1024), mem_buf, sizeof(mem_buf));
     print_buffer(mem_buf);
@@ -303,47 +301,53 @@ void kernel_main() {
     if (ata_identify_drive() != 0) {
         print("WARNING: No ATA drive detected. Filesystem operations will fail.\n");
         print("Running in read-only mode.\n");
+        log("WARNING: No ATA drive detected. Filesystem operations will fail.\n");
+        log("Running in read-only mode.\n");
         return;
     }
 
     init_filesystem();
-    if (!filesystem_initialized) {
+    if (filesystem_initialized != 1) {
         print("FATAL: Filesystem initialization failed!\n");
-        while(1); // Halt
+        log("FATAL: Filesystem initialization failed!\n");
     }
     initialize_next_free_block();
-    print("got after free_block");
     print("superblock.file_table_length: ");
+    log("superblock.file_table_length: ");
     int_to_chars(superblock.file_table_length, buffer, sizeof(buffer));
     print(buffer);
     print("\n");
+    log_buffer(buffer);
+    log("\n");
 
-    print_logo(".##  .## .##       .## .##  .##");
-    print_logo(".## .##  .###     .### .## .## ");
-    print_logo(".##.##   .##.##  .#### .##.##  ");
-    print_logo(".####    .## .##.##.## .####   ");
-    print_logo(".###     .##  .### .## .###    ");
-    print_logo(".####    .##       .## .####   ");
-    print_logo(".##.##   .##       .## .##.##  ");
-    print_logo(".## .##  .##       .## .## .## ");
-    print_logo(".##  .## .##       .## .##  .##");
+    print(".##  .## .##       .## .##  .##                                                 ");
+    print(".## .##  .###     .### .## .##                                                  ");
+    print(".##.##   .##.##  .#### .##.##                                                   ");
+    print(".####    .## .##.##.## .####                                                    ");
+    print(".###     .##  .### .## .###                                                     ");
+    print(".####    .##       .## .####                                                    ");
+    print(".##.##   .##       .## .##.##                                                   ");
+    print(".## .##  .##       .## .## .##                                                  ");
+    print(".##  .## .##       .## .##  .##                                                 ");
 
-    print_bear("     !       ");
-    print_bear("  ()=---=()  ");
-    print_bear("  :<O|-|O>:  ");
-    print_bear("  X  U-U  X  ");
-    print_bear(" ( - #<# - ) ");
-    print_bear(" {) (|_|) (} ");
-    print_bear("()=-() ()-=()\n");
-                        // <- Set up IDT
+    print("     !                                                                          ");
+    print("  ()=---=()                                                                     ");
+    print("  :<O|-|O>:                                                                     ");
+    print("  X  U-U  X                                                                     ");
+    print(" ( - #<# - )                                                                    ");
+    print(" {) (|_|) (}                                                                    ");
+    print("()=-() ()-=()                                                                   \n");
+
+    idt_install(); 
+    log("idt installed\n");
     register_interrupt_handler(0x80, syscall_handler);  // <- syscalls
-    
+    log("interrupt handler happened\n");
     int user_task_id = task_create(user_task_entry);
+    int_to_chars(user_task_id, buffer, sizeof(buffer));
+    log(buffer);
     if (user_task_id >= 0) {
         current_task = user_task_id;
         switch_to_user_mode_with_task(user_task_id);
     }
-
-    while (1); // fallback halt
-
+    while (0);
 }
