@@ -326,7 +326,9 @@ void kernel_main() {
         print("FATAL: Filesystem initialization failed!\n");
         while(1); // Halt
     }
-
+    
+    if (mb_info->flags & MB_INFO_FLAG_ELF_BOOTLOADER) {
+    }
     log("Dumping block 0:\n");
     dump_block_0();
     initialize_next_free_block();
