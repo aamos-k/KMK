@@ -206,7 +206,7 @@ Waiting for BSY to clear...
 BSY cleared after 0 iterations
 After read command - Status: 0xD0 (BSY=1, DRQ=0)
 Waiting for DRQ to set...
-DRQ set after 1 iterations
+DRQ set after 0 iterations
 Read completed successfully
 ATA read sector 29
 Waiting for BSY to clear...
@@ -234,7 +234,7 @@ Waiting for BSY to clear...
 BSY cleared after 0 iterations
 After read command - Status: 0xD0 (BSY=1, DRQ=0)
 Waiting for DRQ to set...
-DRQ set after 0 iterations
+DRQ set after 1 iterations
 Read completed successfully
 ATA read sector 33
 Waiting for BSY to clear...
@@ -304,7 +304,7 @@ Waiting for BSY to clear...
 BSY cleared after 0 iterations
 After read command - Status: 0xD0 (BSY=1, DRQ=0)
 Waiting for DRQ to set...
-DRQ set after 0 iterations
+DRQ set after 3 iterations
 Read completed successfully
 ATA read sector 43
 Waiting for BSY to clear...
@@ -374,7 +374,7 @@ Waiting for BSY to clear...
 BSY cleared after 0 iterations
 After read command - Status: 0xD0 (BSY=1, DRQ=0)
 Waiting for DRQ to set...
-DRQ set after 0 iterations
+DRQ set after 3 iterations
 Read completed successfully
 ATA read sector 53
 Waiting for BSY to clear...
@@ -395,21 +395,21 @@ Waiting for BSY to clear...
 BSY cleared after 0 iterations
 After read command - Status: 0xD0 (BSY=1, DRQ=0)
 Waiting for DRQ to set...
-DRQ set after 0 iterations
+DRQ set after 4 iterations
 Read completed successfully
 ATA read sector 56
 Waiting for BSY to clear...
 BSY cleared after 0 iterations
 After read command - Status: 0xD0 (BSY=1, DRQ=0)
 Waiting for DRQ to set...
-DRQ set after 4 iterations
+DRQ set after 3 iterations
 Read completed successfully
 ATA read sector 57
 Waiting for BSY to clear...
 BSY cleared after 0 iterations
 After read command - Status: 0xD0 (BSY=1, DRQ=0)
 Waiting for DRQ to set...
-DRQ set after 0 iterations
+DRQ set after 3 iterations
 Read completed successfully
 ATA read sector 58
 Waiting for BSY to clear...
@@ -430,7 +430,7 @@ Waiting for BSY to clear...
 BSY cleared after 0 iterations
 After read command - Status: 0xD0 (BSY=1, DRQ=0)
 Waiting for DRQ to set...
-DRQ set after 0 iterations
+DRQ set after 3 iterations
 Read completed successfully
 ATA read sector 61
 Waiting for BSY to clear...
@@ -458,664 +458,21 @@ Waiting for BSY to clear...
 BSY cleared after 0 iterations
 After read command - Status: 0xD0 (BSY=1, DRQ=0)
 Waiting for DRQ to set...
-DRQ set after 0 iterations
+DRQ set after 3 iterations
 Read completed successfully
 ATA read sector 65
 Waiting for BSY to clear...
 BSY cleared after 0 iterations
 After read command - Status: 0xD0 (BSY=1, DRQ=0)
 Waiting for DRQ to set...
-DRQ set after 0 iterations
+DRQ set after 4 iterations
 Read completed successfully
 ATA read sector 66
 Waiting for BSY to clear...
 BSY cleared after 0 iterations
 After read command - Status: 0xD0 (BSY=1, DRQ=0)
 Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 67
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 68
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 69
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 70
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 71
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 72
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 73
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 4 iterations
-Read completed successfully
-ATA read sector 74
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 75
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 76
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 77
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 78
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 79
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 80
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 81
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 82
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 83
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 84
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 85
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 86
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 87
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 88
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-Dumping block 0:
-ATA read sector 0
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-Block 0 dump:
-46 53 00 00 00 10 00 00 01 00 00 00 00 04 00 00 
-59 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
-Identifying ATA drive...
-After IDENTIFY - Status: 0x58 (BSY=0, DRQ=1)
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-ATA drive identified successfully
-ATA read sector 0
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 1
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 1 iterations
-Read completed successfully
-ATA read sector 2
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 3
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 4
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 5
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 6
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 4 iterations
-Read completed successfully
-ATA read sector 7
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 4 iterations
-Read completed successfully
-ATA read sector 8
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 9
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 10
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 11
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 12
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 13
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 14
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 15
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 16
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 17
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 18
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 19
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 20
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 21
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 22
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 23
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 24
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 25
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 26
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 27
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 28
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 29
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 30
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 31
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 32
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 33
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 34
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 35
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 36
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 37
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 38
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 39
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 40
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 41
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 42
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 43
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 44
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 45
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 46
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 47
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 48
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 49
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 50
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 51
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 52
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 53
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 54
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 55
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 56
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 57
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 58
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 59
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 60
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 61
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 62
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 63
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 64
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 65
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-ATA read sector 66
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
+DRQ set after 3 iterations
 Read completed successfully
 ATA read sector 67
 Waiting for BSY to clear...
@@ -1220,7 +577,7 @@ Waiting for BSY to clear...
 BSY cleared after 0 iterations
 After read command - Status: 0xD0 (BSY=1, DRQ=0)
 Waiting for DRQ to set...
-DRQ set after 0 iterations
+DRQ set after 4 iterations
 Read completed successfully
 ATA read sector 82
 Waiting for BSY to clear...
@@ -1271,16 +628,3 @@ After read command - Status: 0xD0 (BSY=1, DRQ=0)
 Waiting for DRQ to set...
 DRQ set after 0 iterations
 Read completed successfully
-Dumping block 0:
-ATA read sector 0
-Waiting for BSY to clear...
-BSY cleared after 0 iterations
-After read command - Status: 0xD0 (BSY=1, DRQ=0)
-Waiting for DRQ to set...
-DRQ set after 0 iterations
-Read completed successfully
-Block 0 dump:
-46 53 00 00 00 10 00 00 01 00 00 00 00 04 00 00 
-59 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 

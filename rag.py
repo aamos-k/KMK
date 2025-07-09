@@ -22,7 +22,7 @@ def read_repo_files():
     ids = []
     for root, _, files in os.walk(REPO_PATH):
         for f in files:
-            if f.endswith((".c", ".h", ".asm")):
+            if f.endswith((".c", ".h", ".asm" ".log")):
                 path = os.path.join(root, f)
                 with open(path, "r", encoding="utf-8", errors="ignore") as file:
                     content = file.read()

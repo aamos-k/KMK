@@ -191,21 +191,6 @@ void initialize_next_free_block() {
     print_buffer(buffer); print("\n");
 }
 
-void dump_block_0() {
-    uint8_t buf[BLOCK_SIZE];
-    disk_read_block(0, buf);
-
-    log("Block 0 dump:\n");
-    for (int i = 0; i < 64; i++) {
-        char hex[3];
-        int_to_hex(buf[i], hex);
-        log_buffer(hex);
-        log(" ");
-        if ((i + 1) % 16 == 0)
-            log("\n");
-    }
-}
-
 void switch_to_user_mode(void* entry_point, void* user_stack_top) {
     asm volatile (
         "cli\n"
@@ -326,12 +311,8 @@ void kernel_main() {
         print("FATAL: Filesystem initialization failed!\n");
         while(1); // Halt
     }
-    
-    if (mb_info->flags) {
-    }
-    log("Dumping block 0:\n");
-    dump_block_0();
     initialize_next_free_block();
+    print("got after free_block");
     print("superblock.file_table_length: ");
     int_to_chars(superblock.file_table_length, buffer, sizeof(buffer));
     print(buffer);

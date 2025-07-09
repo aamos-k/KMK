@@ -26,7 +26,7 @@ void print_ata_status(const char* context) {
 static int ata_wait_bsy_clear(void) {
     uint8_t status;
     log("Waiting for BSY to clear...\n");
-    for (int i = 0; i < 100000; i++) {
+    for (int i = 0; i < 50000; i++) {
         status = inb(ATA_PRIMARY_CMD + 7);
         if (!(status & 0x80)) {
             log("BSY cleared after ");
