@@ -16,19 +16,20 @@ NASMFLAGS = -f elf32
 all: $(ISO)
 
 # Assembly compilation
-start.o: start.asm
+
+start.o: start/start.asm
 	$(NASM) $(NASMFLAGS) $< -o $@
 
-syscall_entry.o: syscall_entry.asm
+syscall_entry.o: syscalls/syscall_entry.asm
 	$(NASM) $(NASMFLAGS) $< -o $@
 
 idt_load.o: helpers/idt_load.asm
 	$(NASM) $(NASMFLAGS) $< -o $@
 
-isr_common_stub.o: isr_common_stub.asm
-	nasm -f elf32 isr_common_stub.asm -o isr_common_stub.o
+isr_common_stub.o: isr/isr_common_stub.asm
+	$(NASM) $(NASMFLAGS) $< -o $@
 
-isr_stubs.o: isr_stubs.asm
+isr_stubs.o: isr/isr_stubs.asm
 	$(NASM) $(NASMFLAGS) $< -o $@
 
 # C compilation
@@ -38,11 +39,11 @@ basics.o: helpers/basics.c helpers/basics.h
 kernel.o: kernel.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-isr.o: isr.c
-	gcc -I./structs -m32 -ffreestanding -fno-stack-protector -c isr.c -o isr.o
+isr.o: isr/isr.c
+	$(CC) $(CFLAGS) -c $< -o $@
 
 idt.o: helpers/idt.c helpers/idt.h
-	$(CC) $(CFLAGS) -c helpers/idt.c -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 # Linking kernel
 $(KERNEL): $(START) $(KERNEL_OBJ)

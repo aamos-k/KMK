@@ -13,6 +13,8 @@
 #define MAX_PIPES 8
 #define MAX_TASKS 4
 
+void switch_to_user_mode_with_task(int task_id);
+
 uint32_t next_free_block = 0;
 char buffer[12];
 int pipe_count = 0;
@@ -319,29 +321,6 @@ int truncate(const char *filename, int len) {
      
      fe->size        = len;
      return 0;
-}
-
-void switch_to_user_mode_with_task(int task_id) {
-    Task *t = &tasks[task_id];
-
-    asm volatile (
-        "cli\n"
-        "mov $0x23, %%ax\n"        // User data segment
-        "mov %%ax, %%ds\n"
-        "mov %%ax, %%es\n"
-        "mov %%ax, %%fs\n"
-        "mov %%ax, %%gs\n"
-
-        "mov %0, %%esp\n"          // Set stack pointer
-        "pushl $0x23\n"
-        "pushl %%esp\n"
-        "pushf\n"
-        "pushl $0x1B\n"            // User code segment
-        "pushl %1\n"               // EIP (entry point)
-        "iret\n"
-        :
-        : "r" (&t->stack[STACK_SIZE - 1]), "r" (t->entry)
-    );
 }
 
 void sched_yield() {

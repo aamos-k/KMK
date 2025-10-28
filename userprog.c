@@ -1,4 +1,6 @@
-#include "syscalls.h"
+#include "syscalls/syscalls.h"
+#include <stdint.h>
+#include <stddef.h>
 
 extern char buffer[12];
 
@@ -7,7 +9,5 @@ void load_user_program() {
     const char* name = "hello";
     syscall_file(2, name, msg, sizeof("Hello, kernel!\n") - 1);
     syscall_file(3, name, buffer, sizeof(buffer));
-    syscall_exit(1); // sys_exit
-    
+    while (1);  // Prevent returning
 }
-

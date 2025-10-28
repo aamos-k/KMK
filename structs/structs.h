@@ -45,6 +45,9 @@ typedef struct {
     uint8_t stack[STACK_SIZE];
     void (*entry)(void);
     int active;
+    uint32_t id;
+    uint32_t esp;
+    uint32_t eip;
 } Task;
 
 #endif

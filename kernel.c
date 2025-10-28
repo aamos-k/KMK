@@ -1,5 +1,7 @@
 __attribute__((section(".multiboot"))) volatile unsigned long header[] = {
-    0x1BADB002, 0x0, -(0x1BADB002)
+    0x1BADB002,            // magic
+    0x00000003,            // flags: request memory info + video info
+    -(0x1BADB002 + 0x00000003)  // checksum
 };
 
 #include <stdint.h>
@@ -13,6 +15,7 @@ __attribute__((section(".multiboot"))) volatile unsigned long header[] = {
 #include "posix/posix.h"
 #include "helpers/idt.h"
 #include "structs/interrupts.h"
+#include "gdt/gdt.h"
 
 #define USER_PROG_LOAD_ADDR 0x400000
 #define USER_STACK_TOP      0x800000
@@ -24,6 +27,9 @@ __attribute__((section(".multiboot"))) volatile unsigned long header[] = {
 #define FD_PIPE_WRITE(pipe_id) (1000 + (pipe_id) * 2 + 1)
 #define FS_MAGIC 0x5346 // 'SF' in little endian
 #define MAX_INTERRUPTS 256
+#define USER_STACK_TOP 0x800000
+#define USER_PROG_LOAD_ADDR 0x400000
+
 
 // At the top of kernel.c:
 void register_interrupt_handler(int n, void (*handler)(struct registers*));
@@ -79,17 +85,18 @@ void register_interrupt_handler(int n, void (*handler)(struct registers *r)) {
 int task_create(void (*entry)(void)) {
     for (int i = 0; i < MAX_TASKS; i++) {
         if (!tasks[i].active) {
-            tasks[i].entry = entry;
             tasks[i].active = 1;
 
-            // Zero out the stack (optional)
-            for (int j = 0; j < STACK_SIZE; j++)
-                tasks[i].stack[j] = 0;
-
+            // Set user stack at top of stack array
+            tasks[i].esp = (uint32_t)&tasks[i].stack[STACK_SIZE];
+            
+            // For user tasks, EIP will be program load address
+            tasks[i].eip = (uint32_t)entry;
+            
             return i;
         }
     }
-    return -1; // No slot
+    return -1; // No available task slot
 }
 
 void clear_screen() {
@@ -190,42 +197,41 @@ void initialize_next_free_block() {
     print_buffer(buffer); print("\n");
 }
 
-void switch_to_user_mode(void* entry_point, void* user_stack_top) {
-    asm volatile (
+void switch_to_user_mode_with_task(int task_id) {
+    Task *task = &tasks[task_id];
+
+    // Load user data segment selectors
+    __asm__ volatile (
         "cli\n"
-        "mov $0x23, %%ax\n"        // User data segment selector (ring 3, data)
+        "mov $0x23, %%ax\n"     // 0x23 = user data segment (RPL 3)
         "mov %%ax, %%ds\n"
         "mov %%ax, %%es\n"
         "mov %%ax, %%fs\n"
         "mov %%ax, %%gs\n"
 
+        // Set up user mode stack
         "mov %0, %%eax\n"
-        "mov %%eax, %%esp\n"       // Set stack pointer
-
-        "pushl $0x23\n"            // User data segment selector (stack)
-        "pushl %%eax\n"            // Stack pointer
-
-        "pushf\n"                  // Push eflags
-
-        "pushl $0x1B\n"            // User code segment selector (ring 3)
-        "pushl %1\n"               // Entry point (EIP)
-
+        "pushl $0x23\n"         // User data segment selector
+        "pushl %%eax\n"         // Stack pointer
+        "pushf\n"
+        "pushl $0x1B\n"         // User code segment selector (RPL 3)
+        "pushl %1\n"            // Instruction pointer
         "iret\n"
         :
-        : "r" (user_stack_top), "r" (entry_point)
+        : "r"(task->esp), "r"(task->eip)
     );
 }
-
 
 
 void syscall_handler(struct registers *r) {
     switch (r->eax) {
         case 1: // sys_exit
+            tasks[current_task].active = 0;  // mark task inactive
             print("Process exited\n");
-            kill(current_task);
-            r->eax = 0;
-            break;
 
+            // Switch back to kernel loop or idle task
+            while (1) { __asm__ volatile("hlt"); }
+            break;
         case 2: // sys_write(filename, data, size)
             r->eax = write((const char*)r->ebx, (const void*)r->ecx, r->edx, DEFAULT_PERMS);
             break;
@@ -279,11 +285,39 @@ void syscall_handler(struct registers *r) {
 }
 
 void user_task_entry() {
-    load_user_program("main");
+    // Load user program into memory
+    int entry_point = load_user_program("main");
+    if (entry_point == 0) {
+        print("Failed to load user program!\n");
+        while (1); // Stop CPU to avoid reboot
+    }
+
+    // Jump to loaded program
+    __asm__ volatile(
+        "pushl $0x23\n"        // SS
+        "pushl %0\n"           // ESP
+        "pushf\n"
+        "pushl $0x1B\n"        // CS
+        "pushl %1\n"           // EIP
+        "iret\n"
+        :
+        : "r"(USER_STACK_TOP), "r"(entry_point)
+    );
+
+    // Should never return
+    while (1);
 }
 
+
 void kernel_main() {
+
     multiboot_info_t* mb_info = (multiboot_info_t*)mb_info_ptr;
+
+    gdt_install();       // ← Must be before anything that touches user mode or IDT
+
+    __asm__ volatile ("cli");         // disable all interrupts
+    disable_watchdog();              // if on QEMU
+
     serial_init();
     clear_screen();
     print_buffer("Total Memory (MB): ");
@@ -345,9 +379,15 @@ void kernel_main() {
     int user_task_id = task_create(user_task_entry);
     int_to_chars(user_task_id, buffer, sizeof(buffer));
     log(buffer);
-    if (user_task_id >= 0) {
+    int i = 0; // choose first task slot
+    tasks[i].esp = USER_STACK_TOP;
+    tasks[i].eip = USER_PROG_LOAD_ADDR; // after loading program, entry point
+
+    if (user_task_id != -1) {
         current_task = user_task_id;
         switch_to_user_mode_with_task(user_task_id);
+    } else {
+        log("Failed to create user task!\n");
     }
     while (0);
 }
