@@ -1,13 +1,14 @@
 #include "syscalls/syscalls.h"
 #include <stdint.h>
-#include <stddef.h>
 
-extern char buffer[12];
+extern char buffer[12];  // Define it, don't extern it
 
-void load_user_program() {
+void load_user_program() {  // Standard entry point name
     const char* msg  = "Hello, kernel!\n";
     const char* name = "hello";
-    syscall_file(2, name, msg, sizeof("Hello, kernel!\n") - 1);
-    syscall_file(3, name, buffer, sizeof(buffer));
-    while (1);  // Prevent returning
+    
+    syscall_file(2, name, msg, 15);  // sizeof returns pointer size, use literal
+    syscall_file(3, name, buffer, 12);
+    
+    syscall_exit(1);  // Exit cleanly instead of infinite loop
 }

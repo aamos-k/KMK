@@ -5,7 +5,6 @@ KERNEL = kernel
 # Object files
 START = start.o
 KERNEL_OBJ = kernel.o idt.o idt_load.o isr_stubs.o userprog.o syscall_entry.o isr_common_stub.o isr.o basics.o
-
 # Compiler and tools
 CC = gcc
 CFLAGS = -I./helpers -I./structs -I./filesystem -I./posix -I. -m32 -ffreestanding -fno-stack-protector

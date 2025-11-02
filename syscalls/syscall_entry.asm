@@ -1,27 +1,31 @@
+global syscall_entry
 extern syscall_handler
 
-[bits 32]
-global syscall_entry
 syscall_entry:
+    ; Save all registers
     pusha
     push ds
     push es
     push fs
     push gs
-
-    pushad
-    mov eax, esp
-    push eax            ; Pass register state
-
+    
+    ; Load kernel data segment
+    mov ax, 0x10
+    mov ds, ax
+    mov es, ax
+    mov fs, ax
+    mov gs, ax
+    
+    ; Call C handler (stack pointer = struct registers*)
+    push esp
     call syscall_handler
-    add esp, 4          ; Clean up parameter
-
-    popad
-
+    add esp, 4
+    
+    ; Restore registers
     pop gs
     pop fs
     pop es
     pop ds
     popa
+    
     iret
-

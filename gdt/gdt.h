@@ -49,19 +49,22 @@ void gdt_flush(uint32_t gdt_ptr) {
     );
 }
 
-void gdt_install() {
+void gdt_install(void) {
     gp.limit = (sizeof(struct gdt_entry) * 6) - 1;
-    gp.base = (uint32_t)&gdt;
+    gp.base  = (uint32_t)&gdt;
 
+    // Kernel segments
     gdt_set_gate(0, 0, 0, 0, 0);                // Null segment
-    gdt_set_gate(1, 0, 0xFFFFFFFF, 0x9A, 0xCF); // Kernel code segment
-    gdt_set_gate(2, 0, 0xFFFFFFFF, 0x92, 0xCF); // Kernel data segment
-    gdt_set_gate(3, 0, 0xFFFFFFFF, 0xFA, 0xCF); // User code segment (DPL = 3)
-    gdt_set_gate(4, 0, 0xFFFFFFFF, 0xF2, 0xCF); // User data segment (DPL = 3)
+    gdt_set_gate(1, 0, 0xFFFFFFFF, 0x9A, 0xCF); // Kernel code (0x08)
+    gdt_set_gate(2, 0, 0xFFFFFFFF, 0x92, 0xCF); // Kernel data (0x10)
 
-    // Optionally: add TSS at index 5
+    // User segments
+    gdt_set_gate(3, 0, 0xFFFFFFFF, 0xFA, 0xCF); // User code  (0x1B)
+    gdt_set_gate(4, 0, 0xFFFFFFFF, 0xF2, 0xCF); // User data  (0x23)
 
+    // Load new GDT and TSS
     gdt_flush((uint32_t)&gp);
 }
+
 
 #endif

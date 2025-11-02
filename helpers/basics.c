@@ -1,12 +1,14 @@
 #include <stdint.h>
 #include <stddef.h>
-
+#include <helpers/port_io.h>
 #define LOGO_WIDTH 31
 #define LOGO_HEIGHT 25
 #define BEAR_WIDTH 13
 #define BEAR_HEIGHT 33
 #define VIDEO_WIDTH 80
 #define VIDEO_HEIGHT 25
+#define VGA_CMD_PORT  0x3D4
+#define VGA_DATA_PORT 0x3D5
 
 volatile char* const VIDEO_MEMORY = (volatile char*)0xB8000;
 int col = 0;
@@ -185,6 +187,38 @@ void print_buffer(const char *buffer) {
     }
 }
 
+// Set cursor position (column, row)
+void set_cursor_position(int c, int r) {
+    if (c < 0) c = 0;
+    if (r < 0) r = 0;
+    if (c >= VIDEO_WIDTH) c = VIDEO_WIDTH - 1;
+    if (r >= VIDEO_HEIGHT) r = VIDEO_HEIGHT - 1;
+
+    col = c;
+    row = r;
+
+    uint16_t pos = r * VIDEO_WIDTH + c;
+    outb(VGA_CMD_PORT, 0x0F);
+    outb(VGA_DATA_PORT, (uint8_t)(pos & 0xFF));
+    outb(VGA_CMD_PORT, 0x0E);
+    outb(VGA_DATA_PORT, (uint8_t)((pos >> 8) & 0xFF));
+}
+
+// Get cursor position (fills output variables)
+void get_cursor_position(int *c, int *r) {
+    outb(VGA_CMD_PORT, 0x0F);
+    uint8_t low = inb(VGA_DATA_PORT);
+    outb(VGA_CMD_PORT, 0x0E);
+    uint8_t high = inb(VGA_DATA_PORT);
+    uint16_t pos = ((uint16_t)high << 8) | low;
+
+    *r = pos / VIDEO_WIDTH;
+    *c = pos % VIDEO_WIDTH;
+
+    // Keep globals consistent
+    row = *r;
+    col = *c;
+}
 
 void panic(const char *msg) {
     print(msg);

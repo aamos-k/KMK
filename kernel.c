@@ -76,6 +76,12 @@ extern uint32_t magic_number;
 extern uint32_t mb_info_ptr;
 static void (*interrupt_handlers[MAX_INTERRUPTS])(struct registers *);
 
+void disable_watchdog() {
+    // Disable Bochs/QEMU watchdog (port 0x443, write 0)
+    outb(0x443, 0);
+}
+
+
 void register_interrupt_handler(int n, void (*handler)(struct registers *r)) {
     if (n >= 0 && n < MAX_INTERRUPTS) {
         interrupt_handlers[n] = handler;
@@ -308,29 +314,23 @@ void user_task_entry() {
     while (1);
 }
 
-
 void kernel_main() {
-
     multiboot_info_t* mb_info = (multiboot_info_t*)mb_info_ptr;
-
-    gdt_install();       // ← Must be before anything that touches user mode or IDT
-
+    gdt_install();       // Still needed for basic segmentation
     __asm__ volatile ("cli");         // disable all interrupts
     disable_watchdog();              // if on QEMU
-
     serial_init();
     clear_screen();
     print_buffer("Total Memory (MB): ");
     int_to_chars(((mb_info->mem_lower + mb_info->mem_upper) / 1024), mem_buf, sizeof(mem_buf));
     print_buffer(mem_buf);
     print("\n");
-
     print("Memory Used (MB): ");
     code_size = (size_t)(_text_end - _text_start);
     int_to_chars(code_size / 1024, buffer, sizeof(buffer));
     print_buffer(buffer);
     print("\n");
-
+    
     // Test ATA drive before filesystem operations
     if (ata_identify_drive() != 0) {
         print("WARNING: No ATA drive detected. Filesystem operations will fail.\n");
@@ -339,12 +339,13 @@ void kernel_main() {
         log("Running in read-only mode.\n");
         return;
     }
-
+    
     init_filesystem();
     if (filesystem_initialized != 1) {
         print("FATAL: Filesystem initialization failed!\n");
         log("FATAL: Filesystem initialization failed!\n");
     }
+    
     initialize_next_free_block();
     print("superblock.file_table_length: ");
     log("superblock.file_table_length: ");
@@ -353,7 +354,7 @@ void kernel_main() {
     print("\n");
     log_buffer(buffer);
     log("\n");
-
+    
     print(".##  .## .##       .## .##  .##                                                 ");
     print(".## .##  .###     .### .## .##                                                  ");
     print(".##.##   .##.##  .#### .##.##                                                   ");
@@ -363,31 +364,46 @@ void kernel_main() {
     print(".##.##   .##       .## .##.##                                                   ");
     print(".## .##  .##       .## .## .##                                                  ");
     print(".##  .## .##       .## .##  .##                                                 ");
-
     print("     !                                                                          ");
     print("  ()=---=()                                                                     ");
     print("  :<O|-|O>:                                                                     ");
     print("  X  U-U  X                                                                     ");
-    print(" ( - #<# - )                                                                    ");
+    print(" ( - #^# - )                                                                    ");
     print(" {) (|_|) (}                                                                    ");
     print("()=-() ()-=()                                                                   \n");
-
+    
     idt_install(); 
     log("idt installed\n");
-    register_interrupt_handler(0x80, syscall_handler);  // <- syscalls
-    log("interrupt handler happened\n");
-    int user_task_id = task_create(user_task_entry);
-    int_to_chars(user_task_id, buffer, sizeof(buffer));
+    
+    // Test filesystem operations in kernel mode
+    log("Testing filesystem...\n");
+    const char* test_data = "Hello from kernel!\n";
+    const char* test_file = "test.txt";
+    
+    // Write test
+    int write_result = write(test_file, test_data, 19, DEFAULT_PERMS);
+    log("Write result: ");
+    int_to_chars(write_result, buffer, sizeof(buffer));
     log(buffer);
-    int i = 0; // choose first task slot
-    tasks[i].esp = USER_STACK_TOP;
-    tasks[i].eip = USER_PROG_LOAD_ADDR; // after loading program, entry point
-
-    if (user_task_id != -1) {
-        current_task = user_task_id;
-        switch_to_user_mode_with_task(user_task_id);
-    } else {
-        log("Failed to create user task!\n");
+    log("\n");
+    
+    // Read test
+    char read_buffer[64];
+    int read_result = read(test_file, read_buffer, sizeof(read_buffer));
+    log("Read result: ");
+    int_to_chars(read_result, buffer, sizeof(buffer));
+    log(buffer);
+    log("\n");
+    
+    if (read_result > 0) {
+        log("Read data: ");
+        log(read_buffer);
     }
-    while (0);
+    
+    log("Kernel initialization complete. System ready.\n");
+    
+    // Idle loop
+    while (1) {
+        __asm__ volatile("hlt");
+    }
 }

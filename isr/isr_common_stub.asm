@@ -10,15 +10,14 @@ isr_common_stub:
     push fs
     push gs
 
-    ; Set up segment registers
-    mov ax, 0x10
+    mov ax, 0x10      ; kernel data selector
     mov ds, ax
     mov es, ax
     mov fs, ax
     mov gs, ax
 
-    push esp             ; Pass pointer to registers
-    call isr_handler     ; Call the C ISR handler
+    push esp           ; argument to C handler
+    call isr_handler
     add esp, 4
 
     pop gs
@@ -26,6 +25,7 @@ isr_common_stub:
     pop es
     pop ds
     popa
-    add esp, 4           ; pop error code or fake placeholder
-    iret
+    add esp, 8         ; remove err_code + int_no
+    iretd
+
 

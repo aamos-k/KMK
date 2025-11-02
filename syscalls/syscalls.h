@@ -58,22 +58,21 @@ static inline int syscall_truncate(int num, const char*  arg1, int  arg2) {
     );
     return ret;
 }
-static inline int syscall_chmod(int num, const char*  arg1, uint8_t arg2) {
+static inline int syscall_chmod(int num, const char* arg1, uint8_t arg2) {
     int ret;
     asm volatile (
         "int $0x80"
-        : "=a" (ret)                      // output: eax return value
-        : "a" (num),                      // input: eax = syscall number
-          "b" (arg1)                      // ebx = 1st arg
+        : "=a" (ret)
+        : "a" (num), "b" (arg1), "c" (arg2)  // Added arg2!
     );
     return ret;
 }
-static inline int syscall_pipe(int num, int  arg1) {
+static inline int syscall_pipe(int num, int* arg1) {  // Note: should be int*
     int ret;
     asm volatile (
         "int $0x80"
-        : "=a" (ret)                      // output: eax return value
-        : "a" (num)                        // input: eax = syscall number
+        : "=a" (ret)
+        : "a" (num), "b" (arg1)  // Added arg1!
     );
     return ret;
 }
@@ -99,10 +98,9 @@ static inline int syscall_kill(int num, int arg1) {
     int ret;
     asm volatile (
         "int $0x80"
-        : "=a" (ret)                      // output: eax return value
-        : "a" (num)                      // input: eax = syscall number
+        : "=a" (ret)
+        : "a" (num), "b" (arg1)  // Added arg1!
     );
     return ret;
 }
-
 #endif

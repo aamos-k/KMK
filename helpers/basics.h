@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 #include <stddef.h>
-
+#include <helpers/port_io.h>
 extern int col;
 extern int row;
 extern volatile char* const VIDEO_MEMORY;
@@ -29,5 +29,6 @@ void print(const char* str);
 void print_buffer_n(const char *buffer, int len);
 void print_buffer(const char *buffer);
 void panic(const char *msg);
-
+void set_cursor_position(int c, int r);
+void get_cursor_position(int *c, int *r);
 #endif
