@@ -1,1 +1,1 @@
-A fully custom kernel (with a few POSIX syscalls)
+A fully custom kernel
