@@ -35,6 +35,7 @@ __attribute__((section(".multiboot"))) volatile unsigned long header[] = {
 void register_interrupt_handler(int n, void (*handler)(struct registers*));
 int load_user_program(const char* filename);
 extern void syscall_entry();  // defined in assembly or C stub
+extern void user_program_main();  // User space program entry point
 
 typedef struct {
     uint32_t flags;
@@ -372,21 +373,25 @@ void kernel_main() {
     print(" {) (|_|) (}                                                                    ");
     print("()=-() ()-=()                                                                   \n");
     
-    idt_install(); 
+    idt_install();
     log("idt installed\n");
-    
+
+    // Register syscall handler for INT 0x80
+    register_interrupt_handler(0x80, syscall_handler);
+    log("Syscall handler registered\n");
+
     // Test filesystem operations in kernel mode
     log("Testing filesystem...\n");
     const char* test_data = "Hello from kernel!\n";
     const char* test_file = "test.txt";
-    
+
     // Write test
     int write_result = write(test_file, test_data, 19, DEFAULT_PERMS);
     log("Write result: ");
     int_to_chars(write_result, buffer, sizeof(buffer));
     log(buffer);
     log("\n");
-    
+
     // Read test
     char read_buffer[64];
     int read_result = read(test_file, read_buffer, sizeof(read_buffer));
@@ -394,15 +399,33 @@ void kernel_main() {
     int_to_chars(read_result, buffer, sizeof(buffer));
     log(buffer);
     log("\n");
-    
+
     if (read_result > 0) {
         log("Read data: ");
         log(read_buffer);
     }
-    
-    log("Kernel initialization complete. System ready.\n");
-    
-    // Idle loop
+
+    log("Kernel initialization complete. Starting user space...\n");
+
+    // Create user task
+    int user_task_id = task_create(user_program_main);
+    if (user_task_id == -1) {
+        log("ERROR: Failed to create user task!\n");
+        while (1) { __asm__ volatile("hlt"); }
+    }
+
+    log("User task created with ID: ");
+    int_to_chars(user_task_id, buffer, sizeof(buffer));
+    log(buffer);
+    log("\n");
+
+    // Set current task and switch to user mode
+    current_task = user_task_id;
+    log("Switching to user mode...\n");
+    switch_to_user_mode_with_task(user_task_id);
+
+    // Should never reach here
+    log("ERROR: Returned from user mode!\n");
     while (1) {
         __asm__ volatile("hlt");
     }

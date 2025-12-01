@@ -44,6 +44,9 @@ isr.o: isr/isr.c
 idt.o: helpers/idt.c helpers/idt.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
+userprog.o: userprog.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
 # Linking kernel
 $(KERNEL): $(START) $(KERNEL_OBJ)
 	ld -m elf_i386 -T linker.ld -o $@ $(START) $(KERNEL_OBJ)
