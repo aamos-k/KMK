@@ -1,0 +1,19 @@
+# Build artifacts
+*.o
+kernel
+os.iso
+iso/
+
+# Editor files
+*.swp
+*.swo
+*~
+.*.sw?
+
+# IDE files
+.vscode/
+.idea/
+
+# Output files
+output.log
+disk.img
