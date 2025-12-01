@@ -33,7 +33,6 @@ __attribute__((section(".multiboot"))) volatile unsigned long header[] = {
 
 // At the top of kernel.c:
 void register_interrupt_handler(int n, void (*handler)(struct registers*));
-int load_user_program(const char* filename);
 extern void syscall_entry();  // defined in assembly or C stub
 extern void user_program_main();  // User space program entry point
 
@@ -292,12 +291,8 @@ void syscall_handler(struct registers *r) {
 }
 
 void user_task_entry() {
-    // Load user program into memory
-    int entry_point = load_user_program("main");
-    if (entry_point == 0) {
-        print("Failed to load user program!\n");
-        while (1); // Stop CPU to avoid reboot
-    }
+    // Use the user program entry point directly
+    uint32_t entry_point = (uint32_t)user_program_main;
 
     // Jump to loaded program
     __asm__ volatile(
