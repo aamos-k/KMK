@@ -219,7 +219,7 @@ void switch_to_user_mode_with_task(int task_id) {
         "mov %0, %%eax\n"
         "pushl $0x23\n"         // User data segment selector
         "pushl %%eax\n"         // Stack pointer
-        "pushf\n"
+        "pushl $0x202\n"        // EFLAGS with IF=1 (bit 9) and reserved bit 1
         "pushl $0x1B\n"         // User code segment selector (RPL 3)
         "pushl %1\n"            // Instruction pointer
         "iret\n"
