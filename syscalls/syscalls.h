@@ -103,4 +103,13 @@ static inline int syscall_kill(int num, int arg1) {
     );
     return ret;
 }
+static inline int syscall_print(int num, const char* str) {
+    int ret;
+    asm volatile (
+        "int $0x80"
+        : "=a" (ret)
+        : "a" (num), "b" (str)
+    );
+    return ret;
+}
 #endif

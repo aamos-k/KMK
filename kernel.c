@@ -280,6 +280,11 @@ void syscall_handler(struct registers *r) {
             r->eax = 0;
             break;
 
+        case 12: // sys_print(string)
+            print((const char*)r->ebx);
+            r->eax = 0;
+            break;
+
         default:
             print("Unknown syscall: ");
             int_to_chars(r->eax, buffer, sizeof(buffer));
