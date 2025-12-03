@@ -27,8 +27,6 @@ __attribute__((section(".multiboot"))) volatile unsigned long header[] = {
 #define FD_PIPE_WRITE(pipe_id) (1000 + (pipe_id) * 2 + 1)
 #define FS_MAGIC 0x5346 // 'SF' in little endian
 #define MAX_INTERRUPTS 256
-#define USER_STACK_TOP 0x800000
-#define USER_PROG_LOAD_ADDR 0x400000
 
 
 // At the top of kernel.c:
@@ -234,9 +232,7 @@ void syscall_handler(struct registers *r) {
         case 1: // sys_exit
             tasks[current_task].active = 0;  // mark task inactive
             print("Process exited\n");
-
-            // Switch back to kernel loop or idle task
-            while (1) { __asm__ volatile("hlt"); }
+            sched_yield();  // Switch to another task or halt if none left
             break;
         case 2: // sys_write(filename, data, size)
             r->eax = write((const char*)r->ebx, (const void*)r->ecx, r->edx, DEFAULT_PERMS);
