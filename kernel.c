@@ -295,6 +295,28 @@ void syscall_handler(struct registers *r) {
     }
 }
 
+void enable_fpu() {
+    // Enable FPU by configuring CR0
+    uint32_t cr0;
+    __asm__ volatile("mov %%cr0, %0" : "=r"(cr0));
+    cr0 &= ~(1 << 2);  // Clear EM (Emulation) bit - enable FPU
+    cr0 |= (1 << 1);   // Set MP (Monitor Coprocessor) bit
+    cr0 |= (1 << 5);   // Set NE (Native Exception) bit - enable internal FPU error reporting
+    __asm__ volatile("mov %0, %%cr0" :: "r"(cr0));
+
+    // Enable SSE by configuring CR4
+    uint32_t cr4;
+    __asm__ volatile("mov %%cr4, %0" : "=r"(cr4));
+    cr4 |= (1 << 9);   // Set OSFXSR bit - enable FXSAVE/FXRSTOR
+    cr4 |= (1 << 10);  // Set OSXMMEXCPT bit - enable SSE exceptions
+    __asm__ volatile("mov %0, %%cr4" :: "r"(cr4));
+
+    // Initialize FPU
+    __asm__ volatile("finit");
+
+    log("FPU/SSE initialized\n");
+}
+
 void user_task_entry() {
     // Use the user program entry point directly
     uint32_t entry_point = (uint32_t)user_program_main;
@@ -318,6 +340,7 @@ void user_task_entry() {
 void kernel_main() {
     multiboot_info_t* mb_info = (multiboot_info_t*)mb_info_ptr;
     gdt_install();       // Still needed for basic segmentation
+    enable_fpu();        // Enable FPU and SSE
     __asm__ volatile ("cli");         // disable all interrupts
     disable_watchdog();              // if on QEMU
     serial_init();
